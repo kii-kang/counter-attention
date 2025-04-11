@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import Papa from 'papaparse';
 import './index.css';
 
-const Archive = ({}) => {
+const Archive = (props) => {
       const [gridItems, setGridItems] = useState([]);
       const gridContainerRef = useRef();
       const [columnsCount, setColumnsCount] = useState(Math.min(5, Math.floor(gridContainerRef.innerWidth / 200)));
@@ -26,29 +26,42 @@ const Archive = ({}) => {
             })
             .catch(error => console.error('Error loading CSV:', error));
         }, []);
+
         useEffect(() => {
             const handleResize = () => {
-                setColumnsCount(Math.floor(gridContainerRef.innerWidth / 200));
+                if (gridContainerRef.current) {
+                    console.log("gridContainerRef", gridContainerRef.current.offsetWidth);
+                    setColumnsCount(Math.floor(gridContainerRef.current.offsetWidth / 200));
+                }
             };
+            handleResize(); // Call once to set initial columns count
             window.addEventListener('resize', handleResize);
+            return () => window.removeEventListener('resize', handleResize);
         }, []);
     return (
         <div
-            className="flex w-full justify-center items-center min-h-screen"
+            className="flex w-full justify-center items-center"
         >
             <div
-                className={`grid gap-4 w-[calc(100%-160px)] max-w-[1000px] p-5`}
+                className={`grid gap-4 w-[calc(100%-160px)] max-w-[1000px] p-5 overflow-y-auto`}
                 style={{
-                    gridTemplateColumns: `repeat(${columnsCount}, minmax(0, 1fr))`
-                }}
+                    gridTemplateColumns: `repeat(${columnsCount}, minmax(0, 1fr))`,
+                    maxHeight: '100vh', // Set a maximum height for the scrollbox
+                }
+                }
                 ref={gridContainerRef}
             >
                 {gridItems.map((item, index) => (
                     <div
                         key={index}
-                        className="border border-[#efefef] relative bg-white pb-[100%]"
+                        className={`border border-[#efefef] relative bg-white pb-[100%] aspect-square ${item.url ? 'cursor-pointer' : ''}`}
+                        onClick={() => {
+                            if (item.url) {
+                                window.open(item.url, '_blank', 'noopener,noreferrer');
+                            }
+                        }}
                     >
-                        <div className="absolute text-sm text-justify tracking-tight flex mx-auto h-full w-full p-2.5 flex-col justify-center items-center">
+                        <div className="absolute text-sm text-justify tracking-tight flex mx-auto h-full w-full p-2.5 flex-col justify-center items-center ">
                             {item.img ? (
                                 <>
                                     <img

@@ -1,8 +1,12 @@
 import React from 'react';
 import './index.css';
-const StripLeft = () => {
+const StripLeft = (props) => {
     return (
-        <div className="fixed pointer-events-non w-fit h-fit -rotate-90 origin-top-left left-0 translate-y-[100vh] text-center m-0 leading-none flex-col">
+        <div
+            className={`fixed pointer-events-non w-fit h-fit -rotate-90 origin-top-left left-0 translate-y-[100vh] text-center m-0 leading-none flex-col ${
+                props.isMobile ? 'scale-[60%]' : ''
+            }`}
+        >
             <div className="strip text-[3rem] -m-2 tracking-widest">
                 {Array(10).fill("COUNTER ATTENTION ARCHIVE").join(" ")}
             </div>

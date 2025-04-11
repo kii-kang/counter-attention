@@ -12,11 +12,15 @@ import StripRight from './StripRight';
 import Archive from './Archive';
 function App() {
   const [imgFocused, setImgFocused] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+
   const images = [
     { word: "gondii", image: "/images/gondii.jpg" },
     { word: "aslap", image: "/images/aslap.jpg" }
   ];
-  
+  const isMobileDevice = () => {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+};
   // const handleMouseMove = (e) => {
   //   const rect = e.target.getBoundingClientRect();
   //   const x = e.clientX - rect.left;
@@ -26,12 +30,16 @@ function App() {
   //   const blur = Math.max(0, 5 - (distance / maxDistance) * 5);
   //   setBlurAmount(blur);
   // };
-
-  return (
+  useEffect(() => {
+    setIsMobile(isMobileDevice());
+    if (isMobileDevice()) console.log("mobile device detected.")
+}, []);
+return (
     <Router>
       <div className="flex flex-col min-h-screen w-full">
         {/* <div className="textbox fixed flex-col min-w-screen min-h-screen"> */}
-          <StripLeft />
+          <StripLeft isMobile={isMobile}/>
+          <StripRight isMobile={isMobile} />
           <div className="fixed h-full left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 flex flex-col sm:flex-row justify-center items-center">
             <Routes>
               <Route path="/" element={
@@ -43,14 +51,11 @@ function App() {
                 <a href="https://community-privacy.github.io/" target='blank' rel='noreferrer' className='underline'> Community Privacy Residency (2025)</a> &lt;3 
               </div>
                 </nav>
-            
-                
               } />
-              <Route path="/text" element={<Text />} />
-              <Route path="/index" element={<Archive />} />
+              <Route path="/text" element={<Text isMobile={isMobile}/>} />
+              <Route path="/index" element={<Archive isMobile={isMobile}/>} />
             </Routes>
           </div>
-          <StripRight />
         {/* </div> */}
       </div>
     </Router>
