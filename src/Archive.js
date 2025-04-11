@@ -6,7 +6,7 @@ import './index.css';
 const Archive = (props) => {
       const [gridItems, setGridItems] = useState([]);
       const gridContainerRef = useRef();
-      const [columnsCount, setColumnsCount] = useState(props.isMobile ? 2 : Math.min(4, Math.floor(gridContainerRef.innerWidth / 200)));
+      const [columnsCount, setColumnsCount] = useState(4);
         useEffect(() => {
             fetch('./contents.tsv')
             .then(response => response.text())
@@ -30,10 +30,10 @@ const Archive = (props) => {
         useEffect(() => {
             const handleResize = () => {
                 if (gridContainerRef.current) {
-                    setColumnsCount(props.isMobile ? 2 : Math.min(4, Math.floor(gridContainerRef.innerWidth / 200)));
+                    setColumnsCount(props.isMobile ? 2 : Math.min(4, Math.floor(gridContainerRef.current?.offsetWidth / 200)));
                 }
             };
-            handleResize(); // Call once to set initial columns count
+            handleResize();
             window.addEventListener('resize', handleResize);
             return () => window.removeEventListener('resize', handleResize);
         }, []);
@@ -45,7 +45,7 @@ const Archive = (props) => {
                 className={`grid gap-4 w-[calc(100%-160px)] max-w-[1000px] p-5 overflow-y-auto`}
                 style={{
                     gridTemplateColumns: `repeat(${columnsCount}, minmax(0, 1fr))`,
-                    maxHeight: '100vh', // Set a maximum height for the scrollbox
+                    maxHeight: '100vh'
                 }
                 }
                 ref={gridContainerRef}
