@@ -16,12 +16,11 @@ const Text = (props) => {
             const keywordElements = Array.from(paragraph.querySelectorAll("span.keyword"));
             keywordElements.forEach((el, index) => {
                 const keywordRect = el.getBoundingClientRect();
-                console.log(rect.top, keywordRect.top)
                 const distance = keywordRect.top - rect.top;
                 const imageElement = document.getElementById(`image-${index}`);
                 if (!imageElement) return;
-                console.log("distance", distance)
-                if (distance < window.innerHeight - 200 && distance > 200) {
+                let offset = props.isMobile ? 50 : 200;
+                if (distance < window.innerHeight - offset && distance > offset) {
                     setImgFocused(images[index]);
                     imageElement.style.visibility = "visible";
                     imageElement.style.opacity = 0.9;
@@ -57,9 +56,11 @@ const Text = (props) => {
         <div>
             <div
                 ref={paragraphRef}
-                className={`fixed top-0 left-1/2 -translate-x-1/2 text-[2.5rem] m-auto max-w-[1000px] p-2 font-[TimesNewRoman] overflow-y-scroll overflow-x-clip h-full scroll-snap-y-mandatory ${
-                props.isMobile ? 'w-[calc(100%-90px)] text-[1.8rem]' : 'w-[calc(100%-200px)] text-[2.5rem]'
-            }`}>
+                className="fixed top-0 left-1/2 -translate-x-1/2 text-[2.5rem] m-auto max-w-[1000px] p-2 font-[TimesNewRoman] overflow-y-scroll overflow-x-clip h-full scroll-snap-y-mandatory"
+                style={{
+                    width: props.isMobile? 'calc(100% - 90px)' : 'calc(100% - 200px)',
+                    fontSize: props.isMobile ? '1.8rem' : '2.5rem',
+            }}>
                 <div className="p-0 m-0 text-justify leading-relaxed tracking-wide">
                     <span>
                     <br />
@@ -68,7 +69,7 @@ const Text = (props) => {
                     <br />
                     <center>✴</center>
                     <br />
-                    When I first arrived in Taipei, I spent my time sitting and listening to birds in parks distributed across the city. Birdcalls saturate the air, an ecology of presence and recognition. They are signals, meant to attract, to warn, to communicate—each species crafting its own delicate grammar of attention. These calls are ephemeral and organic, </span><span className="keyword">woven into the shifting rhythms of nature.</span><span>
+                    When I first arrived in Taipei in February 2025, I spent my time sitting and listening to birds in parks distributed across the city. Birdcalls saturate the air, an ecology of presence and recognition. They are signals, meant to attract, to warn, to communicate—each species crafting its own delicate grammar of attention. These calls are ephemeral and organic, </span><span className="keyword">woven into the shifting rhythms of nature.</span><span>
                     <br />
                     <br />
                     <center>✴</center>
