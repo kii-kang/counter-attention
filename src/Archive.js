@@ -31,6 +31,7 @@ const Archive = (props) => {
             const handleResize = () => {
                 if (gridContainerRef.current) {
                     setColumnsCount(props.isMobile ? 2 : Math.min(4, Math.floor(gridContainerRef.current?.offsetWidth / 200)));
+                    setColumnsCount(Math.max(2, Math.min(4, Math.floor(gridContainerRef.current?.offsetWidth / 200))));
                 }
             };
             handleResize();
