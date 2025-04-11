@@ -6,7 +6,7 @@ import './index.css';
 const Archive = (props) => {
       const [gridItems, setGridItems] = useState([]);
       const gridContainerRef = useRef();
-      const [columnsCount, setColumnsCount] = useState(Math.min(5, Math.floor(gridContainerRef.innerWidth / 200)));
+      const [columnsCount, setColumnsCount] = useState(props.isMobile ? 2 : Math.min(4, Math.floor(gridContainerRef.innerWidth / 200)));
         useEffect(() => {
             fetch('./contents.tsv')
             .then(response => response.text())
@@ -30,8 +30,7 @@ const Archive = (props) => {
         useEffect(() => {
             const handleResize = () => {
                 if (gridContainerRef.current) {
-                    console.log("gridContainerRef", gridContainerRef.current.offsetWidth);
-                    setColumnsCount(Math.floor(gridContainerRef.current.offsetWidth / 200));
+                    setColumnsCount(props.isMobile ? 2 : Math.min(4, Math.floor(gridContainerRef.innerWidth / 200)));
                 }
             };
             handleResize(); // Call once to set initial columns count
