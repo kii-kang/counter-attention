@@ -58,7 +58,7 @@ const Text = (props) => {
             <div
                 ref={paragraphRef}
                 className={`fixed top-0 left-1/2 -translate-x-1/2 text-[2.5rem] m-auto max-w-[1000px] p-2 font-[TimesNewRoman] overflow-y-scroll overflow-x-clip h-full scroll-snap-y-mandatory ${
-                props.isMobile ? 'w-[calc(100%-120px)] text-[2rem]' : 'w-[calc(100%-200px)] text-[2.5rem]'
+                props.isMobile ? 'w-[calc(100%-120px)] text-[1.5rem]' : 'w-[calc(100%-200px)] text-[2.5rem]'
             }`}>
                 <div className="p-0 m-0 text-justify leading-relaxed tracking-wide">
                     <span>
