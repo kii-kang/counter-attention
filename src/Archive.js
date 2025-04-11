@@ -42,7 +42,7 @@ const Archive = (props) => {
             className="flex w-full justify-center items-center"
         >
             <div
-                className={`grid gap-4 w-[calc(100%-160px)] max-w-[1000px] p-5 overflow-y-auto`}
+                className={`grid gap-4 ${props.isMobile ? 'w-[calc(100%-80px)]' : 'w-[calc(100%-160px)]'} max-w-[1000px] p-5 overflow-y-auto`}
                 style={{
                     gridTemplateColumns: `repeat(${columnsCount}, minmax(0, 1fr))`,
                     maxHeight: '100vh'
