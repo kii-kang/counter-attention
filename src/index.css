@@ -1,7 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -11,3 +14,75 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.strip {
+  text-align: justify;
+  white-space: nowrap;
+  padding: 0;
+  font-weight: bold;
+  /* background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; */
+  /* text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white; */
+}
+
+.info {
+  font-size: 40px;
+}
+
+@media (max-width: 600px) {
+  .info {
+    font-size: 24px;
+  }
+}
+
+.textbox {
+  ::-webkit-scrollbar {
+    width: 3px; /* Adjust the width to create space for padding */
+    height: 10px; /* Adjust the height to create space for padding */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent; /* Ensure the track is transparent */
+    border-radius: 10px; /* Match the border-radius of the thumb */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #000000; /* You can adjust this color for the thumb */
+    background-clip: content-box; /* Ensure the thumb doesn't overlap the track */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c0c0c0; /* You can adjust this color for the hover state */
+  }
+}
+
+.keyword {
+  scroll-snap-align: start;
+  scroll-snap-type: y mandatory;
+}
+.media-span {
+  animation: pulseOpacity 2s infinite;
+
+}
+@keyframes pulseOpacity {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+/* .autoscroll {
+  overflow: visible;
+  animation: animateContainer 40s linear forwards infinite;
+}
+
+@keyframes animateContainer {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+} */
